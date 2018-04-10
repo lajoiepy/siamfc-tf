@@ -121,7 +121,7 @@ def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, 
             if run.visualization:
                 show_frame(image_, bboxes[i,:], 1)
             print(i)        
-            file.write(str(i)+' '+bboxes[i,0]+' '+bboxes[i,1]+' '+bboxes[i,2]+' '+bboxes[i,3]) 
+            file.write(str(i)+' '+str(int(bboxes[i,0]))+' '+str(int(bboxes[i,1]))+' '+str(int(bboxes[i,2]))+' '+str(int(bboxes[i,3]))+'\n') 
 
         t_elapsed = time.time() - t_start
         speed = num_frames/t_elapsed
