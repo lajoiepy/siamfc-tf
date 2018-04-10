@@ -1,5 +1,3 @@
-data/
-pretrained/
 *.ipynb_checkpoints
 *.pyc
 *.swp
