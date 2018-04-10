@@ -19,6 +19,8 @@ from src.visualization import show_frame, show_crops, show_scores
 
 # read default parameters and override with custom ones
 def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, final_score_sz, filename, image, templates_z, scores, start_frame):
+    file = open('results.txt', 'w') 
+
     num_frames = np.size(frame_name_list)
     # stores tracker's output for evaluation
     bboxes = np.zeros((num_frames,4))
@@ -117,7 +119,9 @@ def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, 
             z_sz = (1-hp.scale_lr)*z_sz + hp.scale_lr*scaled_exemplar[new_scale_id]
             
             if run.visualization:
-                show_frame(image_, bboxes[i,:], 1)        
+                show_frame(image_, bboxes[i,:], 1)
+            print(i)        
+            file.write(str(i)+' '+bboxes[i,0]+' '+bboxes[i,1]+' '+bboxes[i,2]+' '+bboxes[i,3]) 
 
         t_elapsed = time.time() - t_start
         speed = num_frames/t_elapsed
@@ -132,7 +136,7 @@ def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, 
         # trace_file.write(trace.generate_chrome_trace_format())
 
     plt.close('all')
-
+    file.close()
     return bboxes, speed
 
 
