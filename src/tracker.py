@@ -57,7 +57,9 @@ def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, 
         threads = tf.train.start_queue_runners(coord=coord)
         
         # save first frame position (from ground-truth)
-        bboxes[0,:] = pos_x-target_w/2, pos_y-target_h/2, target_w, target_h                
+        bboxes[0,:] = pos_x-target_w/2, pos_y-target_h/2, target_w, target_h     
+        print('Frame '+str(1))        
+        file.write(str(1)+' '+str(int(bboxes[0,0]))+' '+str(int(bboxes[0,1]))+' '+str(int(bboxes[0,2]))+' '+str(int(bboxes[0,3]))+'\n')            
 
         image_, templates_z_ = sess.run([image, templates_z], feed_dict={
                                                                         siam.pos_x_ph: pos_x,
@@ -120,8 +122,8 @@ def tracker(hp, run, design, frame_name_list, pos_x, pos_y, target_w, target_h, 
             
             if run.visualization:
                 show_frame(image_, bboxes[i,:], 1)
-            print(i)        
-            file.write(str(i)+' '+str(int(bboxes[i,0]))+' '+str(int(bboxes[i,1]))+' '+str(int(bboxes[i,2]))+' '+str(int(bboxes[i,3]))+'\n') 
+            print('Frame '+str(i+1))        
+            file.write(str(i+1)+' '+str(int(bboxes[i,0]))+' '+str(int(bboxes[i,1]))+' '+str(int(bboxes[i,2]))+' '+str(int(bboxes[i,3]))+'\n') 
 
         t_elapsed = time.time() - t_start
         speed = num_frames/t_elapsed
